@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+
+    <title>stand alone usage of `express-es6`</title>
+
+</head>
+<body>
+
+    <h1>header goes here!</h1>
+
+    <div id="content">
+        Loading...
+    </div>
+
+    <script>{{{state}}}</script>
+
+    <script>
+    // example of a promise based lazy method
+    app.import('foo').then(function (foo) {
+        document.getElementById('content').innerHTML = foo.getContent();
+    }).catch(function (err) {
+        console.log(err);
+    });
+    </script>
+
+    <script>
+    // examples of a callback based lazy method
+    app.foo(function () {
+        console.log('app.foo() is now ready!');
+    });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+{
+  "name": "express-prep-client",
+  "description": "Express extension to support ES6 Modules",
+  "version": "0.0.1",
+  "homepage": "https://github.com/yahoo/express-prep-client",
+  "author": "Caridy Patino <caridy@gmail.com> (http://github.com/caridy)",
+  "engines": {
+    "node": ">=0.10.x",
+    "npm": ">=1.4.4"
+  },
+  "dependencies": {
+    "express-state": "~1.1.4"
+  },
+  "peerDependencies": {
+    "express": "3.x"
+  },
+  "devDependencies": {
+    "express": "3.x",
+    "express3-handlebars": "*",
+    "jshint": "*",
+    "loader-extensions": "git://github.com/yahoo/loader-extensions.git"
+  },
+  "main": "./lib/",
+  "keywords": [
+    "express",
+    "javascript",
+    "es6",
+    "ecmascript",
+    "library",
+    "import"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yahoo/express-prep-client.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yahoo/express-prep-client/issues"
+  },
+  "scripts": {
+    "pretest": "jshint lib/",
+    "lint": "jshint lib/"
+  }
+}
