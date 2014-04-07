@@ -8,6 +8,7 @@ Express Prep Client
 TD;DR: With the traction behind evergreen browsers, and the new process behind ECMA TC39 committee to update the language more frecuently, you should have a reliable way to patch the client runtime before executing any application code.
 
 [Express]: https://github.com/visionmedia/express
+[express-state]: https://github.com/yahoo/express-state
 [Build Status]: https://travis-ci.org/yahoo/express-prep-client
 
 
@@ -21,7 +22,7 @@ These two methods help you to set up a set of rules at the app level, and at the
 How does this work
 ------------------
 
-This package relies on [express-state][] package to serialize configuration and bootstrap methods to the client side. It provides a simple API to define async methods (that might or might not be promise based), and this methods (one or more) can be global methods or under a particular namespace. This package will shim those methods to provide a reliable way to call them from the browser but holding the actual execution of those methods until all the neccessary patches to be applied to the runtime to execute the real methods under the hood.
+This package relies on [express-state][] package to serialize configuration and bootstrap methods to the client side. It provides a simple API to define async methods (that might or might not be promise based), and these methods (one or more) can be global methods or under a particular namespace. This package will shim those methods to provide a reliable way to call them from the browser but holding the actual execution of those methods until all the neccessary patches to be applied to the runtime to execute the real methods under the hood.
 
 
 Installation
@@ -67,7 +68,7 @@ _note #2: we expanded the [prepClient][] API to support `testFn` as a method tha
 
 ### Setting up the page
 
-Any patch applied thru `app.prepClient()` and/or `req.prepClient()` will automatically be exposed into the `state` variable in your template engine. If you use `handlebars` you will do this:
+Any patch applied thru `app.prepClient()` and/or `req.prepClient()` will automatically be exposed into the `state` variable in your template engine (see more details on [express-state][] documentation). If you use `handlebars` you will do this:
 
 ```html
 <script>{{{state}}}</script>
@@ -80,7 +81,7 @@ app.init().then(function () {
 </script>
 ```
 
-And this is really the only thing you need to do in your templates to get ready to roll! In the example above, we are reling on the default trigger (`app.init()`) to initialize the application in the client side, but you can customize that as well.
+And this is really the only thing you need to do in your templates. In the example above, we are reling on the default trigger (`app.init()`, which returns a promise) to initialize the application in the client side, but you can customize that as well.
 
 ### Custom initialization
 
