@@ -9,6 +9,7 @@ TD;DR: With the traction behind evergreen browsers, and the new process behind E
 
 [Express]: https://github.com/visionmedia/express
 [express-state]: https://github.com/yahoo/express-state
+[yepnope]: http://yepnopejs.com
 [Build Status]: https://travis-ci.org/yahoo/express-prep-client
 
 
