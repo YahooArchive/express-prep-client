@@ -25,6 +25,7 @@ How does this work
 
 This package relies on [express-state][] package to serialize configuration and bootstrap methods to the client side. It provides a simple API to define async methods (that might or might not be promise based), and these methods (one or more) can be global methods or under a particular namespace. This package will shim those methods to provide a reliable way to call them from the browser but holding the actual execution of those methods until all the neccessary patches to be applied to the runtime to execute the real methods under the hood.
 
+Why doing all this on the server side? The reality is that you could do all this manually on your templates directly, but when you have multiple pages, multiple variations of the things you want to patch, things become a little bit more complex. While using the server and monadic methods that can be serialized and executed on the client side can provide you the right level of abstraction.
 
 Installation
 ------------
@@ -64,7 +65,7 @@ Keep in mind that you can add as many `prepClient()` conditions as you want.
 
 _note #1: we don't use [yepnope][] component explicitely because it is too big to be embeded in every page, instead we implement a narrow version of its API._
 
-_note #2: we expanded the [prepClient][] API to support `testFn` as a method that can be serialized and execute on the client side, the result of this method will have precedence over the `test` value if specified._
+_note #2: we expanded the [yepnope][] API to support `testFn` as a method that can be serialized and execute on the client side, the result of this method will have precedence over the `test` value if specified._
 
 
 ### Setting up the page
