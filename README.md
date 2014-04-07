@@ -75,11 +75,7 @@ Any patch applied thru `app.prepClient()` and/or `req.prepClient()` will automat
 ```html
 <script>{{{state}}}</script>
 <script>
-app.init().then(function () {
-    // your environment is ready! run app specific logic here...
-}).catch(function (err) {
-    console.log('Something was wrong during the initialization.');
-});
+app.init();
 </script>
 ```
 
