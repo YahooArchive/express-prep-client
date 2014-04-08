@@ -5,7 +5,7 @@ Express Prep Client
 
 [![Build Status](https://travis-ci.org/yahoo/express-prep-client.png?branch=master)][Build Status]
 
-TD;DR: With the traction behind evergreen browsers, and the new process behind ECMA TC39 committee to update the language more frecuently, you should have a reliable way to patch the client runtime before executing any application code.
+__TL;DR:__ With the traction behind evergreen browsers, and the new process behind ECMA TC39 committee to update the language more frecuently, you should have a reliable way to patch the client runtime before executing any application code.
 
 [Express]: https://github.com/visionmedia/express
 [express-state]: https://github.com/yahoo/express-state
