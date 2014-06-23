@@ -3,42 +3,39 @@
 'use strict';
 
 // express related stuff
-var express     = require('express'),
-    exphbs      = require('express3-handlebars'),
-    es6         = require('../'), // require('express-loader-bootstrap'),
-    app         = express();
+var express           = require('express'),
+    expressHandlebars = require('express3-handlebars'),
+    expressPrepClient = require('../'), // require('express-prep-client'),
+    app               = express();
 
-es6.extend(app, {
-    'app.import': function (name) {
-        var loader = app.loader;
-        if (!loader) {
-            // setup a custom loader instance
-            // TODO: replace with new Loader(System);
-            loader = app.loader = System;
-            // extending loader
-            app.loaderExtensions.aliases(loader, { aliases: app.aliases });
-            app.loaderExtensions.scriptTransport(loader, {});
-            app.loaderExtensions.formatAMD(loader, {});
-        }
-        return loader.normalize(name).then(function (name) {
-            return loader.import(name);
-        });
+expressPrepClient.extend(app, {
+    'displayDateInCurrentLang': function () {
+        // this is the code that will be executed when the client calls `displayDateInCurrentLang()`.
+        // if you don't want to have client code here, then simply use this method as a shim to call
+        // another function that alerts the date.
+        var date = new Date();
+        alert('Today in ' + app.locales[0] + ': ' + new Intl.DateTimeFormat(app.locales[0]).format(date));
     },
-    'app.foo': function (callback) {
-        callback(123);
+    'myapp.giveMeAPromise': function () {
+        // this promise will be returned when `myapp.giveMeAPromise()`.
+        // if you don't want to have client code here, then simply use this method as a shim to call
+        // another function that returns a promise.
+        return new Promise(function (resolve, reject) {
+            resolve(1);
+        });
     }
 });
 
 // template engine
-app.engine('handlebars', exphbs());
+app.engine('handlebars', expressHandlebars());
 app.set('view engine', 'handlebars');
 
 app.prepClient({
     testFn: function () {
-        return !!window.Intl;
+        return window.Intl;
     },
     nope: [
-        'https://rawgithub.com/andyearnshaw/Intl.js/master/Intl.min.js'
+        'https://rawgit.com/andyearnshaw/Intl.js/master/Intl.min.js'
     ]
 });
 
@@ -47,52 +44,51 @@ app.prepClient({
         return !!window.Promise;
     },
     nope: [
-        'https://rawgithub.com/yahoo/ypromise/master/promise.js'
+        'https://rawgit.com/yahoo/ypromise/master/promise.js'
     ]
 });
-
-app.prepClient({
-    testFn: function () {
-        return !!window.Loader;
-    },
-    nope: 'https://rawgithub.com/ModuleLoader/es6-module-loader/master/dist/es6-module-loader.js'
-});
-
-app.expose({
-    aliases: require('loader-extensions/dist/node/aliases')['default'],
-    scriptTransport: require('loader-extensions/dist/node/transport-script')['default'],
-    formatAMD: require('loader-extensions/dist/node/format-amd')['default']
-}, 'app.loaderExtensions', { cache: true });
 
 app.get('/', function (req, res, next) {
     // patching IntlPolyfill with default `en` locale-data
     res.prepClient({
         testFn: function () {
-            return window.IntlPolyfill;
+            return !window.Intl || window.IntlPolyfill;
         },
-        yep: 'https://rawgithub.com/andyearnshaw/Intl.js/master/locale-data/jsonp/en.js'
+        yep: 'https://rawgit.com/andyearnshaw/Intl.js/master/locale-data/jsonp/en.js'
     });
-    res.expose({}, 'app.aliases');
+    res.expose(['en'], 'app.locales');
     res.render('page');
 });
 
-app.get('/french-bucket-123', function (req, res, next) {
+app.get('/french', function (req, res, next) {
     // patching IntlPolyfill with `fr-FR` locale-data
     res.prepClient({
         testFn: function () {
-            return window.IntlPolyfill;
+            return !window.Intl || window.IntlPolyfill;
         },
-        yep: 'https://rawgithub.com/andyearnshaw/Intl.js/master/locale-data/jsonp/fr-FR.js'
+        yep: 'https://rawgit.com/andyearnshaw/Intl.js/master/locale-data/jsonp/fr-FR.js'
     });
-    // detect a bucket and patch loader for this type of request
-    res.expose({ foo: 'foo-123' }, 'app.aliases');
+    res.expose(['fr-FR'], 'app.locales');
+    res.render('page');
+});
+
+
+app.get('/arabic', function (req, res, next) {
+    // patching IntlPolyfill with `ar-EG` locale-data
+    res.prepClient({
+        testFn: function () {
+            return !window.Intl || window.IntlPolyfill;
+        },
+        yep: 'https://rawgit.com/andyearnshaw/Intl.js/master/locale-data/jsonp/ar-EG.js'
+    });
+    res.expose(['ar-EG'], 'app.locales');
     res.render('page');
 });
 
 app.use(express.static(__dirname + '/modules'));
 
 // listening
-app.set('port', process.env.PORT || 8666);
+app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), function () {
     console.log("Server listening on port " +
         app.get('port') + " in " + app.get('env') + " mode");

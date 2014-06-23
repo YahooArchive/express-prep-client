@@ -3,32 +3,30 @@
 <head>
     <meta charset="utf-8" />
 
-    <title>stand alone usage of `express-es6`</title>
+    <title>`express-prep-client` example</title>
 
 </head>
 <body>
 
-    <h1>header goes here!</h1>
+    <h2>Read carefully...</h2>
 
-    <div id="content">
-        Loading...
-    </div>
+    <p>
+        You should see two alerts, one of them stating the date in the current locale,
+        based on the url. While the other alert will display the resolution value for
+        a promise, which should be equal 1.
+    </p>
+
+    <p>You can visit 3 different pages that will be prepared differently: <a href="/">english</a>,
+        <a href="/french">french</a>, <a href="/arabic">arabic</a></p>
 
     <script>{{{state}}}</script>
 
     <script>
-    // example of a promise based lazy method
-    app.import('foo').then(function (foo) {
-        document.getElementById('content').innerHTML = foo.getContent();
-    }).catch(function (err) {
-        console.log(err);
-    });
-    </script>
-
-    <script>
-    // examples of a callback based lazy method
-    app.foo(function () {
-        console.log('app.foo() is now ready!');
+    // example of a regular initialization
+    displayDateInCurrentLang();
+    // example of a promise based initialization with a namespace
+    myapp.giveMeAPromise().then(function (value) {
+        alert('Promise resolved with value: ' + value);
     });
     </script>
 

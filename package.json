@@ -1,6 +1,6 @@
 {
   "name": "express-prep-client",
-  "description": "Express extension to support ES6 Modules",
+  "description": "Express extension to define rules to prepare the client side runtime per request",
   "version": "0.0.1",
   "homepage": "https://github.com/yahoo/express-prep-client",
   "author": "Caridy Patino <caridy@gmail.com> (http://github.com/caridy)",
@@ -11,16 +11,13 @@
   "dependencies": {
     "express-state": "~1.1.4"
   },
-  "peerDependencies": {
-    "express": "3.x"
-  },
   "devDependencies": {
     "express": "3.x",
     "express3-handlebars": "*",
-    "jshint": "*",
-    "loader-extensions": "git://github.com/yahoo/loader-extensions.git"
+    "jshint": "*"
   },
   "main": "./lib/",
+  "files": ["lib/"],
   "keywords": [
     "express",
     "javascript",
