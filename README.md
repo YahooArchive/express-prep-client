@@ -1,16 +1,18 @@
 Express Prep Client
 ===================
 
-[Express][] extension to patch the client runtime based on feature detection.
+[![Build Status](https://travis-ci.org/yahoo/express-prep-client.png?branch=master)](https://travis-ci.org/yahoo/express-prep-client)
+[![Dependency Status](https://gemnasium.com/yahoo/express-prep-client.png)](https://gemnasium.com/yahoo/express-prep-client)
+[![npm Version](https://badge.fury.io/js/express-prep-client.png)](https://npmjs.org/package/express-prep-client)
 
-[![Build Status](https://travis-ci.org/yahoo/express-prep-client.png?branch=master)][Build Status]
+
+[Express][] extension to patch the client runtime based on feature detection.
 
 __TL;DR:__ With the traction behind evergreen browsers, and the new process behind ECMA TC39 committee to update the language more frequently, you should have a reliable way to patch the client runtime before executing any application code.
 
 [Express]: https://github.com/visionmedia/express
-[express-state]: https://github.com/yahoo/express-state
+[express-prep-client]: https://github.com/yahoo/express-prep-client
 [yepnope]: http://yepnopejs.com
-[Build Status]: https://travis-ci.org/yahoo/express-prep-client
 
 
 Goals & Design
@@ -23,7 +25,7 @@ These two methods help you to set up a set of rules at the app level, and at the
 How does this work
 ------------------
 
-This package relies on [express-state][] package to serialize configuration and bootstrap methods to the client side. It provides a simple API to define async methods (that might or might not be promise based), and these methods (one or more) can be global methods or under a particular namespace. This package will shim those methods to provide a reliable way to call them from the browser but holding the actual execution of those methods until all the necessary patches to be applied to the runtime to execute the real methods under the hood.
+This package relies on [express-prep-client][] package to serialize configuration and bootstrap methods to the client side. It provides a simple API to define async methods (that might or might not be promise based), and these methods (one or more) can be global methods or under a particular namespace. This package will shim those methods to provide a reliable way to call them from the browser but holding the actual execution of those methods until all the necessary patches to be applied to the runtime to execute the real methods under the hood.
 
 Why doing all this on the server side? The reality is that you could do all this manually on your templates directly, but when you have multiple pages, multiple variations of the things you want to patch, things become a little bit more complex. While using the server and monadic methods that can be serialized and executed on the client side can provide you the right level of abstraction.
 
@@ -70,7 +72,7 @@ _note #2: we expanded the [yepnope][] API to support `testFn` as a method that c
 
 ### Setting up the page
 
-Any patch applied thru `app.prepClient()` and/or `req.prepClient()` will automatically be exposed into the `state` variable in your template engine (see more details on [express-state][] documentation). If you use `handlebars` you will do this:
+Any patch applied thru `app.prepClient()` and/or `req.prepClient()` will automatically be exposed into the `state` variable in your template engine (see more details on [express-prep-client][] documentation). If you use `handlebars` you will do this:
 
 ```html
 <script>{{{state}}}</script>
