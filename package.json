@@ -36,6 +36,7 @@
   "bugs": {
     "url": "https://github.com/yahoo/express-prep-client/issues"
   },
+  "license": "BSD",
   "scripts": {
     "pretest": "jshint lib/",
     "lint": "jshint lib/",
