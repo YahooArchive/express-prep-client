@@ -5,7 +5,7 @@ Express Prep Client
 
 [![Build Status](https://travis-ci.org/yahoo/express-prep-client.png?branch=master)][Build Status]
 
-__TL;DR:__ With the traction behind evergreen browsers, and the new process behind ECMA TC39 committee to update the language more frecuently, you should have a reliable way to patch the client runtime before executing any application code.
+__TL;DR:__ With the traction behind evergreen browsers, and the new process behind ECMA TC39 committee to update the language more frequently, you should have a reliable way to patch the client runtime before executing any application code.
 
 [Express]: https://github.com/visionmedia/express
 [express-state]: https://github.com/yahoo/express-state
@@ -16,14 +16,14 @@ __TL;DR:__ With the traction behind evergreen browsers, and the new process behi
 Goals & Design
 --------------
 
-This compontent is a conventional `express` extension, which means it will extend the functionalities provided on `express` by augmenting the express app with new features. `express-prep-client` augments the express app instance with two new method: `app.prepClient()` and `res.prepClient()`.
+This component is a conventional `express` extension, which means it will extend the functionalities provided on `express` by augmenting the express app with new features. `express-prep-client` augments the express app instance with two new method: `app.prepClient()` and `res.prepClient()`.
 
 These two methods help you to set up a set of rules at the app level, and at the request level that should be applied to the client runtime before any code gets executed in the browser. In fact, it acts like a shim for a promise based API to guarantee that the runtime is ready before releasing the control to the real promise.
 
 How does this work
 ------------------
 
-This package relies on [express-state][] package to serialize configuration and bootstrap methods to the client side. It provides a simple API to define async methods (that might or might not be promise based), and these methods (one or more) can be global methods or under a particular namespace. This package will shim those methods to provide a reliable way to call them from the browser but holding the actual execution of those methods until all the neccessary patches to be applied to the runtime to execute the real methods under the hood.
+This package relies on [express-state][] package to serialize configuration and bootstrap methods to the client side. It provides a simple API to define async methods (that might or might not be promise based), and these methods (one or more) can be global methods or under a particular namespace. This package will shim those methods to provide a reliable way to call them from the browser but holding the actual execution of those methods until all the necessary patches to be applied to the runtime to execute the real methods under the hood.
 
 Why doing all this on the server side? The reality is that you could do all this manually on your templates directly, but when you have multiple pages, multiple variations of the things you want to patch, things become a little bit more complex. While using the server and monadic methods that can be serialized and executed on the client side can provide you the right level of abstraction.
 
@@ -48,7 +48,7 @@ Here is an example of how to extend an `express` app with `express-prep-client`:
 var express = require('express'),
     app = express();
 
-// extending the `express` app instance using extension pattern decribed here:
+// extending the `express` app instance using extension pattern described here:
 // https://gist.github.com/ericf/6133744
 require('express-prep-client').extend(app);
 
@@ -63,7 +63,7 @@ app.prepClient({
 
 Keep in mind that you can add as many `prepClient()` conditions as you want.
 
-_note #1: we don't use [yepnope][] component explicitely because it is too big to be embeded in every page, instead we implement a narrow version of its API._
+_note #1: we don't use [yepnope][] component explicitly because it is too big to be embedded in every page, instead we implement a narrow version of its API._
 
 _note #2: we expanded the [yepnope][] API to support `testFn` as a method that can be serialized and execute on the client side, the result of this method will have precedence over the `test` value if specified._
 
@@ -161,7 +161,7 @@ app.get('/french-page', function (req, res, next) {
 In the example above, there are two small details that should be taken in consideration:
 
  * `locale-data` is conditionally loaded based on whether or not the `window.Intl` is available, that means the polyfill itself and the corresponding locale date will be based off the same condition.
- * All patches are loaded in parallel, at least for all moderm browsers, while the execution of the code is preserved based on the other of patches definition. This means that `locale-data` will be set thru `window.IntlPolyfill.__addLocaleData()` API without triggering a race condition.
+ * All patches are loaded in parallel, at least for all modern browsers, while the execution of the code is preserved based on the other of patches definition. This means that `locale-data` will be set thru `window.IntlPolyfill.__addLocaleData()` API without triggering a race condition.
 
 
 License
