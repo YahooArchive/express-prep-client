@@ -14,10 +14,13 @@
   "devDependencies": {
     "express": "3.x",
     "express3-handlebars": "*",
-    "jshint": "*"
+    "jshint": "*",
+    "jest-cli": "^0.1.15"
   },
   "main": "./lib/",
-  "files": ["lib/"],
+  "files": [
+    "lib/"
+  ],
   "keywords": [
     "express",
     "javascript",
@@ -35,6 +38,7 @@
   },
   "scripts": {
     "pretest": "jshint lib/",
-    "lint": "jshint lib/"
+    "lint": "jshint lib/",
+    "test": "node ./node_modules/.bin/jest"
   }
 }
