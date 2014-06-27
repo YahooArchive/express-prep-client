@@ -1,7 +1,7 @@
 {
   "name": "express-prep-client",
   "description": "Express extension to define rules to prepare the client side runtime per request",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/yahoo/express-prep-client",
   "author": "Caridy Patino <caridy@gmail.com> (http://github.com/caridy)",
   "engines": {
@@ -9,7 +9,7 @@
     "npm": ">=1.4.4"
   },
   "dependencies": {
-    "express-state": "~1.1.4"
+    "express-state": "^1.2.0"
   },
   "devDependencies": {
     "express": "3.x",
